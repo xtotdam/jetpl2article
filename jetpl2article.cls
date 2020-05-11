@@ -5,57 +5,58 @@
 % Options:
 % * onlynames 		- will only put names of figures inside frames
 % * smallerfigures 	- will make figures a bit smaller
-% * colormissing 	- will make missing \cite and \ref colourful using fixme package
 %
 % Created by xtotdam
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{jetpl2article}[2019/07/17 LaTeX class that converts JETP Letters' class to simple article]
 
-\LoadClass[a4paper]{article}
+\LoadClass[10pt]{article}
 
 \RequirePackage{cmap}
 \RequirePackage[utf8]{inputenc}
 \RequirePackage[T1,T2A]{fontenc}
 
-\RequirePackage[sort&compress,square]{natbib}
-\bibliographystyle{jetpl}
-
-\RequirePackage[russian]{babel}
-
-\RequirePackage{geometry}
-\RequirePackage{amsmath}
-
-\RequirePackage{hyperref}
-
-\geometry{left=2cm}
-\geometry{right=1.5cm}
-\geometry{top=1cm}
-\geometry{bottom=2cm}
-
-\RequirePackage{graphicx}
-
-\newcommand{\insertfigure}[1]{\includegraphics[height=0.8\textheight,width=0.9\linewidth,keepaspectratio]{#1}}
-
 \RequirePackage{xifthen}
-
-\newboolean{colormissing}
-\setboolean{colormissing}{false}
 
 \DeclareOption{onlynames}{
 	\renewcommand{\insertfigure}[1]{\fbox{#1}}
 }
+
 \DeclareOption{smallerfigures}{
 	\renewcommand{\insertfigure}[1]{
 		\fbox{\includegraphics[width=0.7\linewidth]{#1}}
 	}
 }
-\DeclareOption{colormissing}{
-	\setboolean{colormissing}{true}
-}
 
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptions\relax
+
+\RequirePackage[sort&compress,numbers,square]{natbib}
+\RequirePackage[english,russian]{babel}
+
+\bibliographystyle{jetpl}
+
+
+\RequirePackage{amsmath}
+\RequirePackage{geometry}
+
+\geometry{%
+	a4paper,
+	twoside,
+	left=2cm,
+	right=1.5cm,
+	top=1cm,
+	bottom=2cm%
+}
+
+\RequirePackage{hyperref}
+
+\RequirePackage{graphicx}
+\newcommand{\insertfigure}[1]{\includegraphics[height=0.8\textheight,width=0.9\linewidth,keepaspectratio]{#1}}
+
+
+% FROM jetpl.cls
 
 \newcommand{\rus}{}
 
@@ -122,50 +123,17 @@
 }
 
 
-\ifthenelse{\boolean{colormissing}}{
-	
-	% makes fixes colorful
-	\RequirePackage{fixme}
-	\RequirePackage{xcolor}
-	\RequirePackage{soulutf8}
-	\RequirePackage{etoolbox}
-	
-	\fxsetup{
-		status=draft,
-		author= ,
-		layout=inline,nomargin,
-		theme=color}
-	\definecolor{fxnote}{rgb}{0,0,0}    % black
-	\definecolor{fxwarning}{rgb}{0,0,0} % black
-	\definecolor{fxerror}{rgb}{0,0,0}   % black
-	\definecolor{fxfatal}{rgb}{0,0,0}   % black
-	\colorlet{fxnotebg}{green!60}     % define the background colour:
-	\colorlet{fxwarningbg}{yellow!60} % define the background colour:
-	\colorlet{fxerrorbg}{red!60}      % define the background colour:
-	\colorlet{fxfatalbg}{red!30}      % define the background colour:
-	% redefine the layout macro:
-	\makeatletter
-	\renewcommand*\FXLayoutInline[3]{%
-		\@fxdocolon {#3}{%
-			\@fxuseface {inline}%
-			\begingroup
-			\sethlcolor{fx#1bg}%
-			\color {fx#1}\ignorespaces \hl{#3\@fxcolon #2}%
-			\endgroup}}
-	
-	\renewcommand*\FXLayoutContentsLine[3]{%
-		\iffx@mode@multiuser%
-		\fxaddcontentsline{\ignorespaces#3 \protect\sethlcolor{fx#1bg}\color{fx#1}\hl{\fxnotename{#1}: #2}}%
-		\else%
-		\fxaddcontentsline{\protect\sethlcolor{fx#1bg}\color{fx#1}\hl{\fxnotename{#1}: #2}}%
-		\fi}
-	\makeatother
-	
-	% emphasizes missing references and citations
-	
-	\makeatletter
-	\patchcmd{\@setref}{\bfseries ??}{\fxerror{Ref}}{}{}
-	\patchcmd{\@citex}{\bfseries ?}{\fxerror{Cite}}{}{}
-	\makeatother
+\RequirePackage{xcolor}
+\RequirePackage{soulutf8}
+\RequirePackage{etoolbox}
 
-}{}
+\newcommand{\missingref} {\sethlcolor{yellow}\color{black}\hl{Ref}}
+\newcommand{\missingcite}{\sethlcolor{orange}\color{black}\hl{Cite}}
+
+\makeatletter
+\patchcmd{\@setref}{\bfseries ??}{\missingref}{}{}
+
+\patchcmd{\NAT@citexnum}{\reset@font\bfseries?}{\missingcite}{}{}
+% \patchcmd{\NAT@citex}{\reset@font\bfseries ?}{\missingcite}{}{}
+% \patchcmd{\@citex}{\bfseries ?}{\missingcite}{}{}
+\makeatother
