@@ -92,7 +92,7 @@
 
 \def\@maketitle{%
 	\vbox{\vspace*{-4mm}
-	{\tiny Assembled using JETPL2article}
+	{\tiny Assembled using \href{https://github.com/xtotdam/jetpl2article}{JETPL2article}}
 	\vspace*{1cm}
 		\begin{center}
 			{\Large\rmfamily\bfseries\upshape\@title\par\vspace*{-4mm}}%
