@@ -5,8 +5,11 @@
 % Options:
 % * onlynames 		- will only put names of figures inside frames
 % * smallerfigures 	- will make figures a bit smaller
+% * colorrefs 		- will color missing cites and refs
+% * colorcite 		- same
 %
 % Created by xtotdam
+% Some parts were taken from original jetpl.cls - many kudos to its creators [http://jetpletters.ru/ru/info.shtml]
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{jetpl2article}[2019/07/17 LaTeX class that converts JETP Letters' class to simple article]
@@ -19,8 +22,18 @@
 
 \RequirePackage{xifthen}
 
+\newboolean{colorreferrors}
+
 \DeclareOption{onlynames}{
 	\renewcommand{\insertfigure}[1]{\fbox{#1}}
+}
+
+\DeclareOption{colorcite}{
+	\setboolean{colorreferrors}{true}
+}
+
+\DeclareOption{colorref}{
+	\setboolean{colorreferrors}{true}
 }
 
 \DeclareOption{smallerfigures}{
@@ -53,7 +66,7 @@
 \RequirePackage{hyperref}
 
 \RequirePackage{graphicx}
-\newcommand{\insertfigure}[1]{\includegraphics[height=0.8\textheight,width=0.9\linewidth,keepaspectratio]{#1}}
+\newcommand{\insertfigure}[1]{\includegraphics[height=0.8\textheight,width=\linewidth,keepaspectratio]{#1}}
 
 
 % FROM jetpl.cls
@@ -93,7 +106,7 @@
 
 \def\@maketitle{%
 	\vbox{\vspace*{-4mm}
-	{\tiny Assembled using \href{https://github.com/xtotdam/jetpl2article}{JETPL2article}}
+	{\tiny Typeset with \href{https://github.com/xtotdam/jetpl2article}{JETPL2article}}
 	\vspace*{1cm}
 		\begin{center}
 			{\Large\rmfamily\bfseries\upshape\@title\par\vspace*{-4mm}}%
@@ -122,18 +135,23 @@
 	\setcounter{equation}{0}
 }
 
+\ifthenelse{
+	\boolean{colorreferrors}
+}{
+	\RequirePackage{xcolor}
+	\RequirePackage{soulutf8}
+	\RequirePackage{etoolbox}
 
-\RequirePackage{xcolor}
-\RequirePackage{soulutf8}
-\RequirePackage{etoolbox}
+	\newcommand{\missingref} {\sethlcolor{yellow}\color{black}\hl{Ref}}
+	\newcommand{\missingcite}{\sethlcolor{orange}\color{black}\hl{Cite}}
 
-\newcommand{\missingref} {\sethlcolor{yellow}\color{black}\hl{Ref}}
-\newcommand{\missingcite}{\sethlcolor{orange}\color{black}\hl{Cite}}
+	\makeatletter
+	\patchcmd{\@setref}{\bfseries ??}{\missingref}{}{}
 
-\makeatletter
-\patchcmd{\@setref}{\bfseries ??}{\missingref}{}{}
-
-\patchcmd{\NAT@citexnum}{\reset@font\bfseries?}{\missingcite}{}{}
-% \patchcmd{\NAT@citex}{\reset@font\bfseries ?}{\missingcite}{}{}
-% \patchcmd{\@citex}{\bfseries ?}{\missingcite}{}{}
-\makeatother
+	\patchcmd{\NAT@citexnum}{\reset@font\bfseries?}{\missingcite}{}{}
+	% \patchcmd{\NAT@citex}{\reset@font\bfseries ?}{\missingcite}{}{}
+	% \patchcmd{\@citex}{\bfseries ?}{\missingcite}{}{}
+	\makeatother
+}{
+	\relax
+}
