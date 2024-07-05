@@ -1,0 +1,61 @@
+%\documentclass[]{jetpl}
+\documentclass[onlynames]{jetpl2article}
+
+\usepackage{hyperref}
+\usepackage{lipsum} % тарабарщина
+
+\providecommand{\insertfigure}[1]{\fbox{#1}}
+
+\twocolumn
+\rus
+
+\title{ Равновесные и неравновесные состояния\\ одномерных атомных структур }
+\rtitle{ Равновесные и неравновесные состояния одномерных атомных структур }
+\sodtitle{ Равновесные и неравновесные состояния одномерных атомных структур }
+
+\author{А.\,Г.\,Сыромятников$^{\dagger}$\/\thanks{email@physics.msu.ru},
+		А.\,М.\,Салецкий$^{\dagger}$,
+		А.\,Л.\,Клавсюк$^{\dagger}$}
+
+\rauthor{А.\,Г.\,Сыромятников, А.\,М.\,Салецкий, А.\,Л.\,Клавсюк}
+\sodauthor{Сыромятников, Салецкий, Клавсюк}
+
+
+\address{$^{\dagger}$Московский государственный университет им. М.~В.~Ломоносова, 119991 Москва, Россия}
+
+\dates{\today}{*}
+
+\abstract{ \lipsum[1] }
+
+% \PACS{}
+
+\begin{document}
+
+\maketitle
+
+
+\lipsum[2-5]
+
+\begin{figure}
+	\centering
+	\insertfigure{fig1.pdf}
+	\caption{(Цветной онлайн) \lipsum[1][1] \red{\texttt{onlynames} is active!}}
+	\label{fig4}
+\end{figure}
+
+
+\red{\lipsum[6][2-5]}
+
+
+
+\begin{thebibliography}{10}
+	\bibitem{bib1} \lipsum[5][3]
+	\bibitem{bib2} \lipsum[5][4]
+	\bibitem{bib3} \lipsum[5][5]
+\end{thebibliography}
+
+
+\newpage
+\listoffigures
+
+\end{document}
