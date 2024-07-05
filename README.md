@@ -6,7 +6,7 @@ JETPL2article
 Заодно сделан и стилевой файл для bibTeX'а.
 Бонусом подсвечиваются отсутствующие \ref и \cite.
 
-Файлы в папке `example/` взяты с http://www.jetpletters.ac.ru/ru/rus-ex.shtml
+Файлы в папке `official-example-cp1251/` взяты с http://www.jetpletters.ac.ru/ru/rus-ex.shtml
 
 ### Опции класса
 
@@ -18,7 +18,7 @@ JETPL2article
 
 `\insertfigure{путь}` - вставляет изображение
 
-`\red{текст}` - красит текст в красный
+`\red{текст}` - красит текст в красный (не определено в `jetpl.cls`)
 
 
 ##### Пример вставки рисунка
