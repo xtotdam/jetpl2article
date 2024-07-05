@@ -68,6 +68,9 @@
 \RequirePackage{graphicx}
 \newcommand{\insertfigure}[1]{\includegraphics[height=0.8\textheight,width=\linewidth,keepaspectratio]{#1}}
 
+\RequirePackage{xcolor}
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+
 
 % FROM jetpl.cls
 
@@ -138,8 +141,7 @@
 \ifthenelse{
 	\boolean{colorreferrors}
 }{
-	\RequirePackage{xcolor}
-	\RequirePackage{soulutf8}
+	\RequirePackage{soul}
 	\RequirePackage{etoolbox}
 
 	\newcommand{\missingref} {\sethlcolor{yellow}\color{black}\hl{Ref}}
@@ -155,3 +157,4 @@
 }{
 	\relax
 }
+
