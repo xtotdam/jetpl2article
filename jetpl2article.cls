@@ -16,9 +16,13 @@
 
 \LoadClass[10pt]{article}
 
+\RequirePackage{microtype}
+
 \RequirePackage{cmap}
 \RequirePackage[utf8]{inputenc}
 \RequirePackage[T1,T2A]{fontenc}
+
+\RequirePackage{commath}
 
 \RequirePackage{xifthen}
 
@@ -69,7 +73,9 @@
 \newcommand{\insertfigure}[1]{\includegraphics[height=0.8\textheight,width=\linewidth,keepaspectratio]{#1}}
 
 \RequirePackage{xcolor}
-\newcommand{\red}[1]{\textcolor{red}{#1}}
+\DeclareRobustCommand{\red}[1]{\textcolor{red}{#1}}
+\DeclareRobustCommand{\blue}[1]{\textcolor{blue}{#1}}
+\DeclareRobustCommand{\green}[1]{\textcolor{green}{#1}}
 
 
 % FROM jetpl.cls
@@ -107,6 +113,26 @@
 			\hspace*{5.5mm}\small\ignorespaces#1}}%
 }
 
+
+\renewcommand\maketitle{\par
+	\begingroup
+		% \renewcommand\thefootnote{\@fnsymbol\c@footnote}%
+        \def\@makefnmark{\rlap{\@textsuperscript{\normalfont\@thefnmark}}}%
+        \long\def\@makefntext##1{\parindent 1em\noindent
+            \hb@xt@1.8em{%
+                \hss\@textsuperscript{\normalfont\@thefnmark}}##1}%
+		\setcounter{footnote}{0}%
+	    \if@twocolumn
+		\twocolumn[\@maketitle]%
+		\else
+		\global\@topnum\z@
+		\@maketitle%\@thanks
+		\fi
+		\thispagestyle{plain}\@thanks
+		\setcounter{equation}{0}
+	\endgroup
+}
+
 \def\@maketitle{%
 	\vbox{\vspace*{-4mm}
 	{\tiny Typeset with \href{https://github.com/xtotdam/jetpl2article}{JETPL2article}}
@@ -125,17 +151,6 @@
 			\par
 		\end{center}
 	}%
-}
-
-\renewcommand\maketitle{\par
-	\setcounter{footnote}{0}%
-    \if@twocolumn
-	\twocolumn[\@maketitle]%
-	\else
-	\global\@topnum\z@
-	\@maketitle%\@thanks
-	\fi
-	\setcounter{equation}{0}
 }
 
 \ifthenelse{
@@ -157,4 +172,6 @@
 }{
 	\relax
 }
+
+
 
