@@ -73,9 +73,10 @@
 \newcommand{\insertfigure}[1]{\includegraphics[height=0.8\textheight,width=\linewidth,keepaspectratio]{#1}}
 
 \RequirePackage{xcolor}
-\DeclareRobustCommand{\red}[1]{\textcolor{red}{#1}}
-\DeclareRobustCommand{\blue}[1]{\textcolor{blue}{#1}}
-\DeclareRobustCommand{\green}[1]{\textcolor{green}{#1}}
+\newcommand{\red}[1]{\begingroup\color{red}#1\endgroup}
+\newcommand{\blue}[1]{\begingroup\color{blue}#1\endgroup}
+\newcommand{\green}[1]{\begingroup\color{green}#1\endgroup}
+
 
 
 % FROM jetpl.cls
