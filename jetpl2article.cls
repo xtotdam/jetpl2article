@@ -18,9 +18,27 @@
 
 \RequirePackage{microtype}
 
-\RequirePackage{cmap}
-\RequirePackage[utf8]{inputenc}
-\RequirePackage[T1,T2A]{fontenc}
+\RequirePackage{iftex}
+
+\ifPDFTeX
+	\RequirePackage{cmap} % should be first
+	\RequirePackage[utf8]{inputenc}
+	\RequirePackage[T1,T2A]{fontenc}
+\fi
+
+\ifLuaTeX
+	\RequirePackage{fontspec}
+
+	% from https://github.com/AndreyAkinshin/Russian-Phd-LaTeX-Dissertation-Template/
+	\setmonofont{CMU Typewriter Text}
+	\newfontfamily\cyrillicfonttt{CMU Typewriter Text}
+	\defaultfontfeatures{Ligatures=TeX}
+	\setmainfont{Times New Roman}
+	\newfontfamily\cyrillicfont{Times New Roman}
+	\setsansfont{CMU Sans Serif}
+	\newfontfamily\cyrillicfontsf{CMU Sans Serif}
+\fi
+
 
 \RequirePackage{commath}
 
