@@ -5,10 +5,10 @@
 % Options:
 % * onlynames 		- will only put names of figures inside frames
 % * smallerfigures 	- will make figures a bit smaller
-% * colorrefs 		- will color missing cites and refs
+% * colorref 		- will color missing cites and refs
 % * colorcite 		- same
 %
-% Created by xtotdam
+% Created by xtotdam [https://github.com/xtotdam/jetpl2article]
 % Some parts were taken from original jetpl.cls - many kudos to its creators [http://jetpletters.ru/ru/info.shtml]
 
 \NeedsTeXFormat{LaTeX2e}
