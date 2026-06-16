@@ -5,10 +5,10 @@
 % Options:
 % * onlynames 		- will only put names of figures inside frames
 % * smallerfigures 	- will make figures a bit smaller
-% * colorref 		- will color missing cites and refs
+% * colorrefs 		- will color missing cites and refs
 % * colorcite 		- same
 %
-% Created by xtotdam [https://github.com/xtotdam/jetpl2article]
+% Created by xtotdam
 % Some parts were taken from original jetpl.cls - many kudos to its creators [http://jetpletters.ru/ru/info.shtml]
 
 \NeedsTeXFormat{LaTeX2e}
@@ -70,7 +70,7 @@
 \RequirePackage[sort&compress,numbers,square]{natbib}
 \RequirePackage[english,russian]{babel}
 
-\bibliographystyle{jetpl}
+\bibliographystyle{jetpl2026}
 
 
 \RequirePackage{amsmath}
